@@ -1,0 +1,79 @@
+#include <iostream>
+#include <algorithm>
+#include <cstring>
+
+using namespace std;
+
+class tictactoe
+{
+    private:
+       char tictactoe_a[9];
+
+    public:
+        tictactoe()
+        {
+            memset(tictactoe_a,'\0',8);
+        }
+        string set_tictactoe(int p, int v)
+        {
+            if(tictactoe_a[p] == '\0')
+            {
+                tictactoe_a[p] = v;
+                return "success: position set";
+            }
+            else
+                return " error: position already set";
+        }
+
+        bool check_tictactoe()
+        {
+            if((tictactoe_a[0]==tictactoe_a[1] && tictactoe_a[1]==tictactoe_a[2] && tictactoe_a[0]!= '\0') ||
+               (tictactoe_a[3]==tictactoe_a[4] && tictactoe_a[4]==tictactoe_a[5] && tictactoe_a[3]!= '\0') ||
+               (tictactoe_a[6]==tictactoe_a[7] && tictactoe_a[7]==tictactoe_a[8] && tictactoe_a[6]!= '\0') ||
+               (tictactoe_a[0]==tictactoe_a[3] && tictactoe_a[3]==tictactoe_a[6] && tictactoe_a[0]!= '\0') ||
+               (tictactoe_a[1]==tictactoe_a[4] && tictactoe_a[4]==tictactoe_a[7] && tictactoe_a[1]!= '\0') ||
+               (tictactoe_a[2]==tictactoe_a[5] && tictactoe_a[5]==tictactoe_a[8] && tictactoe_a[2]!= '\0') ||
+               (tictactoe_a[0]==tictactoe_a[4] && tictactoe_a[4]==tictactoe_a[8] && tictactoe_a[0]!= '\0') ||
+               (tictactoe_a[2]==tictactoe_a[4] && tictactoe_a[4]==tictactoe_a[6] && tictactoe_a[2]!= '\0'))
+                return true;
+            else
+                return false;
+        }
+
+};
+
+int main()
+{
+    char input;
+    int position;
+    int win;
+    int turn = 9;
+    string s;
+
+    tictactoe game;
+    while(turn)
+    {
+        if(turn%2 == 1)
+            {cout<<"player 1 insert position and x"<<endl;}
+        else if(turn%2 == 0)
+            {cout<<"player 2 insert position and y"<<endl;}
+        cin>>position>>input;
+        s = game.set_tictactoe(position, input);
+        cout<<s<<endl;
+        if(s == "success: position set")
+        {
+            win = game.check_tictactoe();
+            if(win == true)
+            {
+                if(turn%2 == 1)
+                    {cout<<"player 1 wins"<<endl;}
+                else if(turn%2 == 0)
+                    {cout<<"player 2 wins"<<endl;}
+                return 0;
+            }
+            turn--;
+        }
+    }
+    cout<<"no result"<<endl;
+    return 0;
+}
