@@ -12,17 +12,22 @@ class tictactoe
     public:
         tictactoe()
         {
-            memset(tictactoe_a,'\0',8);
+            tictactoe_a[0] = '1';tictactoe_a[1] = '2';tictactoe_a[2] = '3';
+            tictactoe_a[3] = '4';tictactoe_a[4] = '5';tictactoe_a[5] = '6';
+            tictactoe_a[6] = '7';tictactoe_a[7] = '8';tictactoe_a[8] = '9';
         }
         string set_tictactoe(int p, int v)
         {
-            if(tictactoe_a[p] == '\0')
+            if(tictactoe_a[p] =='x' || tictactoe_a[p] =='y')
+            {
+                return " error: position already set";
+            }
+            else
             {
                 tictactoe_a[p] = v;
                 return "success: position set";
             }
-            else
-                return " error: position already set";
+
         }
 
         bool check_tictactoe()
@@ -39,6 +44,14 @@ class tictactoe
             else
                 return false;
         }
+        void print_tictactoe()
+        {
+            cout<<" "<<tictactoe_a[0]<<" "<<"|"<<" "<<tictactoe_a[1]<<" "<<"|"<<" "<<tictactoe_a[2]<<endl;
+            cout<<"---"<<" "<<"---"<<" "<<"---"<<" "<<endl;
+            cout<<" "<<tictactoe_a[3]<<" "<<"|"<<" "<<tictactoe_a[4]<<" "<<"|"<<" "<<tictactoe_a[5]<<endl;
+            cout<<"---"<<" "<<"---"<<" "<<"---"<<" "<<endl;
+            cout<<" "<<tictactoe_a[6]<<" "<<"|"<<" "<<tictactoe_a[7]<<" "<<"|"<<" "<<tictactoe_a[8]<<endl;
+        }
 
 };
 
@@ -53,11 +66,24 @@ int main()
     tictactoe game;
     while(turn)
     {
+        game.print_tictactoe();
         if(turn%2 == 1)
-            {cout<<"player 1 insert position and x"<<endl;}
+            {
+                cout<<"player 1 insert position and x"<<endl;
+                input = 'x';
+            }
         else if(turn%2 == 0)
-            {cout<<"player 2 insert position and y"<<endl;}
-        cin>>position>>input;
+            {
+                cout<<"player 2 insert position and y"<<endl;
+                input = 'y';
+            }
+        cin>>position;
+        if(position<1 || position>9)
+        {
+            cout<<"enter valid position"<<endl;
+            continue;
+        }
+        position=position-1;
         s = game.set_tictactoe(position, input);
         cout<<s<<endl;
         if(s == "success: position set")
@@ -66,14 +92,15 @@ int main()
             if(win == true)
             {
                 if(turn%2 == 1)
-                    {cout<<"player 1 wins"<<endl;}
+                    {cout<<"player 1 wins"<<endl;game.print_tictactoe();}
                 else if(turn%2 == 0)
-                    {cout<<"player 2 wins"<<endl;}
+                    {cout<<"player 2 wins"<<endl;game.print_tictactoe();}
                 return 0;
             }
             turn--;
         }
     }
     cout<<"no result"<<endl;
+    game.print_tictactoe();
     return 0;
 }
