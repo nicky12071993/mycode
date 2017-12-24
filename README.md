@@ -1,1 +1,1 @@
-# mycode simple tictactoe in C++
+# mycode
