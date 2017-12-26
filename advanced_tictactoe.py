@@ -1,3 +1,8 @@
+import os
+
+def clear_screen():
+    os.system("cls")
+
 class tictactoeten:
 
     def __init__(self):        #initializing the sub and main tic_tac_toe
@@ -27,13 +32,13 @@ class tictactoeten:
             print(' ',b[6],' ',b[7],' ',b[8], end='  |')
             print(' ',c[6] ,' ',c[7],' ',c[8])
             print( ' ---------------|----------------|-------------')
-        print("************** Nick's Tic Tac Toe Ten **************")
+        print("************** Nick Tac Toe Ten **************")
         print_board(self.first,self.second,self.third)
         print_board(self.fourth,self.fifth,self.sixth)
         print_board(self.seventh,self.eighth,self.ninth)
 
     def get_insertion_position(self,last_position):      #get what position to enter
-        if last_position == 100:                         #first entry anywhere on the board
+        if last_position == 100:       #first entry anywhere on the board
             lower_limit = 10
             upper_limit = 90
         elif last_position == 0:
@@ -67,10 +72,10 @@ class tictactoeten:
 
     def position_check(self,last_position,board_position):          #ready the parameters to insert in the sub tic_tac_toe
         if board_position>=82 and board_position<=90:
-            insert_pos = board_position-82                          #set position to insert
-            sub_tictactoe = self.first                              #set the sub tictactoe
-            zeroth_pos = 0                                          #set the main tictactoe
-            if last_position == 0 or last_position == 100:          #set true for correct sub tictactoe and first entry
+            insert_pos = board_position-82             #set position to insert
+            sub_tictactoe = self.first         #set the sub tictactoe
+            zeroth_pos = 0         #set the main tictactoe
+            if last_position == 0 or last_position == 100:       #set true for correct sub tictactoe and first entry
                 pos_check_flag = True
                 return (insert_pos,sub_tictactoe,zeroth_pos,pos_check_flag)
             else:
@@ -157,7 +162,6 @@ class tictactoeten:
                 pos_check_flag = False
                 return (insert_pos,sub_tictactoe,zeroth_pos,pos_check_flag)
         
-        
     def board_check(self,board_name):  #check board win
         if ((board_name[0] == board_name[1] and board_name[1] == board_name[2]) or
             (board_name[3] == board_name[4] and board_name[4] == board_name[5]) or
@@ -201,10 +205,12 @@ def main():
             continue
         insert_pos,sub_tictactoe,zeroth_pos,pos_check_flag = game.position_check(last_pos,board_pos)      #get all parameters to make insert
         if pos_check_flag == False:
+            clear_screen()
             print("Error: enter between {} and {}".format(lower_limit,upper_limit))         #print error with corect limits
             continue
         set_board = game.board_set(sub_tictactoe,insert_pos,val)          #set value if allowed
         if set_board == True:
+            clear_screen()
             print("Success: position set")
             last_pos = insert_pos       #set last position to insert for next player
             lower_limit,upper_limit = game.get_insertion_position(last_pos)     #update lower and upper limits
@@ -223,6 +229,7 @@ def main():
                         game.full_board_print()
                         return
         else:
+            clear_screen()
             print("Error: position already set")        #if position is not set
             continue
         count = count-1         #update all chance
