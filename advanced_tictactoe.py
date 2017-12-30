@@ -1,3 +1,5 @@
+#after completion of this program it feels alive
+#its creative and sexy
 import os
 
 def clear_screen():
@@ -193,12 +195,13 @@ def main():
     while count:
         game.full_board_print()       #print board
         lower_limit,upper_limit = game.get_insertion_position(last_pos)     #get limits to print for player
-        if count % 2 == 1:                                                  #set limit as per even odd
-            print("player 1 insert position for X between {} and {}".format(lower_limit,upper_limit))
+        if count % 2 == 1:
+            player_no = '1'                                                  #set limit as per even odd
             val = 'XX'              #set value as per player
         else:
-            print("player 2 insert position for Y between {} and {}".format(lower_limit,upper_limit))
+            player_no = '2'
             val = 'YY'
+        print("player {} enter position for {} between {} and {}".format(player_no,val,lower_limit,upper_limit))
         board_pos = int(input("enter position now"))        #take input
         if board_pos<10 or board_pos>90:                    #check for first entry
             print("Error: enter valid position between 10 to 90")
@@ -206,11 +209,15 @@ def main():
         insert_pos,sub_tictactoe,zeroth_pos,pos_check_flag = game.position_check(last_pos,board_pos)      #get all parameters to make insert
         if pos_check_flag == False:
             clear_screen()
+            if last_pos is not 100:
+                print("player {} entered {}".format(player_no,board_pos))
             print("Error: enter between {} and {}".format(lower_limit,upper_limit))         #print error with corect limits
             continue
         set_board = game.board_set(sub_tictactoe,insert_pos,val)          #set value if allowed
         if set_board == True:
             clear_screen()
+            if last_pos is not 100:
+                print("player {} entered {}".format(player_no,board_pos))
             print("Success: position set")
             last_pos = insert_pos       #set last position to insert for next player
             lower_limit,upper_limit = game.get_insertion_position(last_pos)     #update lower and upper limits
@@ -230,6 +237,8 @@ def main():
                         return
         else:
             clear_screen()
+            if last_pos is not 100:
+                print("player {} entered {}".format(player_no,board_pos))
             print("Error: position already set")        #if position is not set
             continue
         count = count-1         #update all chance
